@@ -151,6 +151,7 @@ var WebIM = {
 		});
 	},
 	ping : function(){
+		//心跳监测，判断是否在线
 		loadURL("/message/ping.html") ;
 		console.log("[IM] heartbeat: " + new Date().getTime())
 	},

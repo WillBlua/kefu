@@ -102,6 +102,7 @@ public class ACDWorkMonitor {
         report.setInquene(cache.getInqueAgentUsersSizeByOrgi(orgi));
 
         // DEBUG
+        logger.info("",report.getUsers());
         logger.info(
                 "[getAgentReport] orgi {}, organ {}, agents {}, busy {}, users {}, inqueue {}", orgi, organ,
                 report.getAgents(), report.getBusy(), report.getUsers(), report.getInquene()

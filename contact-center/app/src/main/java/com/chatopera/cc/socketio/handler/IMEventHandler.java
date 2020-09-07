@@ -65,7 +65,7 @@ public class IMEventHandler {
     static private ACDVisitorDispatcher acdVisitorDispatcher;
 
     /**
-     * 接入访客并未访客寻找坐席服务人员
+     * 接入访客并未访客寻找坐席服务人员..
      *
      * @param client
      */

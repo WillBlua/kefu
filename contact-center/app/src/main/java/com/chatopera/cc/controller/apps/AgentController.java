@@ -862,6 +862,10 @@
          return view;
      }
 
+     /**
+      *
+      * 获取消息
+      * */
      @RequestMapping("/message/image")
      @Menu(type = "resouce", subtype = "image", access = true)
      public ModelAndView messageimage(HttpServletResponse response, ModelMap map, @Valid String id, @Valid String t) throws IOException {

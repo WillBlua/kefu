@@ -94,8 +94,7 @@ public class RichMediaUtils {
     }
 
     /**
-     * 创建图片，文件消息
-     *
+     * 创建图片，文件消息.....     *
      * @param message
      * @param length
      * @param name

@@ -7,7 +7,7 @@
 	<meta name="viewport"
 		content="width=device-width, maximum-scale=1.0, initial-scale=1.0,initial-scale=1.0,user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>在线咨询</title>
+    <title>测试！在线咨询</title>
     
 	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?t=1489039620156"/>
     <link rel="stylesheet" type="text/css" href="/im/css/ukefu.css">
@@ -366,9 +366,9 @@
 		   				<#if exchange == "true">
 		   				<li><a href="/im/index.html?appid=${appid!''}&orgi=${orgi!''}<#if aiid??>&aiid=${aiid}</#if>&ai=true<#if client??>&client=${client!''}</#if><#if type??>&type=text</#if><#if skill??>&skill=${skill!''}</#if><#if agent??>&agent=${agent!''}</#if><#if title??>&title=${title?url}</#if><#if url??>&url=${url?url}</#if><#if traceid??>&traceid=${traceid}</#if>&userid=${userid!''}&sessionid=${sessionid!''}&t=${.now?long}">智能客服</a></li>
 		   				</#if>
-		   				<li class="cur"><a href="javascript:void(0)">人工+++坐席</a></li>
+		   				<li class="cur"><a href="javascript:void(0)">人工2+2坐席</a></li>
 		   			<#else>
-		   				<li class="cur"><a href="javascript:void(0)">人工++坐席</a></li>
+		   				<li class="cur"><a href="javascript:void(0)">人工22坐席</a></li>
 		   			</#if>
 		   		</ul>
 	   		</div>
@@ -387,7 +387,7 @@
             	</div>
             	</#if>
             	<div class="clearfix message  welcome">
-					//欢迎语
+<!--					//欢迎语-->
             		<span id="welcome-message">${(inviteData.dialog_message!'欢迎您来咨询！欢迎使用春松客服！如需帮助请联系 info@chatopera.com')?no_esc}</span></div>
 				<#if chatMessageList?? && chatMessageList.content??>
 					<#list chatMessageList.content?reverse as chatMessage>
@@ -401,7 +401,7 @@
 									</div>
 									<div class="chatting-right">
 										<i class="arrow arrow${inviteData.consult_dialog_color!''}"></i>
-										//获取消息路径"/apps/im/media/message.html"
+<!--										//获取消息路径"/apps/im/media/message.html"-->
 										<div class="chat-content theme${inviteData.consult_dialog_color!''}"><#include "/apps/im/media/message.html"></div>
 									</div>
 								</div>
@@ -570,10 +570,14 @@
     var protocol = window.location.protocol.replace(/:/g,'');
 	var username = encodeURIComponent("${username}");
 	var socket = io(protocol + '://'+hostname+':${port}/im/user?userid=${userid!''}&orgi=${orgi!''}&session=${sessionid!''}&appid=${appid!''}&osname=${(osname!'')?url}&browser=${(browser!'')?url}<#if skill??>&skill=${skill}</#if><#if username??>&nickname='+username+'</#if><#if agent??>&agent=${agent}</#if><#if title??>&title=${title?url}</#if><#if traceid??>&url=${url?url}</#if><#if traceid??>&traceid=${traceid}</#if><#if isInvite??>&isInvite=${isInvite}</#if>', {transports: ['websocket', 'polling']});
-	
+
+
+	console.log("connect socket:",socket)
 	console.log('connect debug', protocol, hostname);
 
     socket.on('connect',function(){
+    	alert("1");
+
     	console.log("on connect ...");
         <#if contacts?? && contacts.name??>
     	socket.emit('new', {
@@ -587,9 +591,11 @@
     	</#if>
     })
     socket.on("agentstatus",function(data){
+		alert("1");
        document.getElementById('connect-message').innerHTML=data.message;
     })
     socket.on("status",function(data){
+		alert("1");
     	<#if welcomeAd>
 			output('<span id="connect-message">'+data.message+'</span>' , 'message connect-message' , false);
 		<#else>
@@ -659,23 +665,39 @@
     function sendMessage() {
 		editor.sync();
 		editor.afterChange();
+		console.log("连接测试");
 		var count = editor.count("text");
+
+		// 建立 websocket 连接成功触发事件
+		socket.onopen = function () {
+			console.log("连接成功");
+
+			var  from={"serialNo":"xxx","idNo":"xxx"}
+			socket.send(JSON.stringify(from));//发送参数
+		};
+
+		// 当服务端处理完成后会将数据发送回来
+		socket.onmessage = function (evt) {
+			var result= evt.data;
+			var data = JSON.parse(event.data)
+			console.log("on data",data)
+		};
+
 		if(count>0 && service_end == false){
 	        var message = document.getElementById('message').value;
 	        console.log(message);
-	        console.log("测试是否走入该index")
 	        if(message!= ""){
-                //socket    var socket = io(protocol + '://'+hostname+':${port}/im/user?userid=${userid!''}&orgi=${orgi!''}&session=${sessionid!''}&appid=${appid!''}&osname=${(osname!'')?url}&browser=${(browser!'')?url}<#if skill??>&skill=${skill}</#if><#if username??>&nickname='+username+'</#if><#if agent??>&agent=${agent}</#if><#if title??>&title=${title?url}</#if><#if traceid??>&url=${url?url}</#if><#if traceid??>&traceid=${traceid}</#if><#if isInvite??>&isInvite=${isInvite}</#if>', {transports: ['websocket', 'polling']});
-                console.info(socket);
-                socket.emit('message', {
-                    appid : "${appid!''}",
-                    userid:"${userid!''}",
-                    type:"message" ,
-                    session:"${sessionid!''}",
-                    orgi:"${orgi!''}",
-                    message : message
-                });
-            }
+				//socket    var socket = io(protocol + '://'+hostname+':${port}/im/user?userid=${userid!''}&orgi=${orgi!''}&session=${sessionid!''}&appid=${appid!''}&osname=${(osname!'')?url}&browser=${(browser!'')?url}<#if skill??>&skill=${skill}</#if><#if username??>&nickname='+username+'</#if><#if agent??>&agent=${agent}</#if><#if title??>&title=${title?url}</#if><#if traceid??>&url=${url?url}</#if><#if traceid??>&traceid=${traceid}</#if><#if isInvite??>&isInvite=${isInvite}</#if>', {transports: ['websocket', 'polling']});
+	        	console.info(socket);
+				socket.emit('message', {
+						appid : "${appid!''}",
+						userid:"${userid!''}",
+						type:"message" ,
+						session:"${sessionid!''}",
+						orgi:"${orgi!''}",
+						message : message
+				});
+			}
 		}else if(service_end == true){
 			alert("坐席已断开和您的对话");
 		}
@@ -719,6 +741,7 @@
 
     }
     // 回车事件
+
     document.onkeyup=function(e){
         if(!e) e=window.event;
         if((e.keyCode||e.which)==13){

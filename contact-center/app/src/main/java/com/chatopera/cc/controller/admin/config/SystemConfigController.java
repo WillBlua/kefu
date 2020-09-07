@@ -30,6 +30,7 @@ import com.chatopera.cc.persistence.repository.SystemMessageRepository;
 import com.chatopera.cc.persistence.repository.TemplateRepository;
 import com.chatopera.cc.util.Menu;
 import com.corundumstudio.socketio.SocketIOServer;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+@Log4j
 @Controller
 @RequestMapping("/admin/config")
 public class SystemConfigController extends Handler {
@@ -79,7 +81,7 @@ public class SystemConfigController extends Handler {
     @Autowired
     private TemplateRepository templateRes;
 
-    @RequestMapping("/index")
+    @RequestMapping("/index")//socket服务
     @Menu(type = "admin", subtype = "config", admin = true)
     public ModelAndView index(ModelMap map, HttpServletRequest request, @Valid String execute) throws SQLException {
         map.addAttribute("server", server);
@@ -133,6 +135,7 @@ public class SystemConfigController extends Handler {
         if (StringUtils.isNotBlank(request.getParameter("msg"))) {
             map.addAttribute("msg", request.getParameter("msg"));
         }
+        log.info("获得socket信息"+request.getParameter("msg"));
         return request(super.createAdminTempletResponse("/admin/config/index"));
     }
 

@@ -46,7 +46,7 @@ public class HumanUtils {
     }
 
     /**
-     * 发送各种消息的底层方法
+     * 发送各种消息的底层方法..
      *
      * @param chatMessage
      * @param msgtype

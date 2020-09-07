@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 发送消息的高级封装
+ * 发送消息的高级封装..
  */
 public class Message extends AbstractContext {
 

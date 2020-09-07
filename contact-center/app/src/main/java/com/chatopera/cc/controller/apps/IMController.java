@@ -17,6 +17,7 @@
 
 package com.chatopera.cc.controller.apps;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chatopera.cc.acd.ACDPolicyService;
 import com.chatopera.cc.acd.ACDWorkMonitor;
 import com.chatopera.cc.basic.Constants;
@@ -929,6 +930,7 @@ public class IMController extends Handler {
         return view;
     }
 
+    //访问地址
     @RequestMapping("/text/{appid}")
     @Menu(type = "im", subtype = "index", access = true)
     public ModelAndView text(

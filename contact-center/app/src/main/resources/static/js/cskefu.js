@@ -355,6 +355,7 @@ var Proxy = {
 					document.getElementById('chat_msg_list').scrollTop = document.getElementById('chat_msg_list').scrollHeight
 					: document.getElementById('chat_msg_list_cca').scrollTop = document.getElementById('chat_msg_list_cca').scrollHeight;
 			}
+			//管理请求过的链接
 			loadURL("/agent/readmsg.html?userid="+data.agentuser);	//更新数据状态，将当前对话的新消息数量清空
 		}else{
 			if(data.type == 'message'){
